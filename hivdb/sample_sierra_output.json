@@ -1,0 +1,63 @@
+[
+  {
+    "inputSequence": {
+      "header": "patient_001"
+    },
+    "algorithmVersion": "9.5",
+    "drugResistance": [
+      {
+        "gene": {
+          "name": "RT"
+        },
+        "drugScores": [
+          {
+            "drug": {
+              "name": "3TC"
+            },
+            "score": 25
+          },
+          {
+            "drug": {
+              "name": "AZT"
+            },
+            "score": 5
+          }
+        ]
+      },
+      {
+        "gene": {
+          "name": "PR"
+        },
+        "drugScores": [
+          {
+            "drug": {
+              "name": "ATV/r"
+            },
+            "score": 60
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "inputSequence": {
+      "header": "patient_002"
+    },
+    "algorithmVersion": "9.5",
+    "drugResistance": [
+      {
+        "gene": {
+          "name": "RT"
+        },
+        "drugScores": [
+          {
+            "drug": {
+              "name": "EFV"
+            },
+            "score": 85
+          }
+        ]
+      }
+    ]
+  }
+]
