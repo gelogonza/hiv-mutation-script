@@ -30,14 +30,90 @@ hiv-mutation-script/
 
 ## 🚀 Quick Start Guide
 
-**Want to run the evaluation immediately?** If you already have the notebook and data ready:
+**Want to run the evaluation on any machine?** Follow these portable steps:
+
+### Prerequisites
+
+- **Python 3.7+** (tested with Python 3.8-3.11)
+- **4GB+ RAM** (for model training)
+- **500MB disk space** (for data and results)
+
+### Installation & Setup
 
 ```bash
-# 1. Navigate to the project directory
-cd /Users/angelogonzalez/Coding/hiv-mutation-script
+# 1. Clone or download the repository
+git clone https://github.com/your-username/hiv-mutation-script.git
+cd hiv-mutation-script
 
-# 2. Run the comparison with your real model data
-python src/compare_vs_hivdb.py data/model_predictions_REAL.csv data/ground_truth_REAL_fixed.csv --output results_REAL/ --verbose
+# 2. Create and activate a Python virtual environment
+python -m venv .venv
+
+# On macOS/Linux:
+source .venv/bin/activate
+
+# On Windows:
+.venv\Scripts\activate
+
+# 3. Install all required dependencies
+pip install -r requirements.txt
+
+# 4. Verify installation
+python src/compare_vs_hivdb.py --help
+```
+
+### Quick Test Run
+
+```bash
+# Option 1: Run the portable test script (recommended for first-time users)
+python test_portable.py
+
+# Expected output:
+# 🎉 ALL TESTS PASSED!
+# ✅ Your machine can successfully run the HIV drug resistance pipeline
+# ✅ Results match the expected 97.82% accuracy benchmark
+
+# Option 2: Run the evaluation directly
+python src/compare_vs_hivdb.py \
+  data/model_predictions_REAL.csv \
+  data/ground_truth_REAL_fixed.csv \
+  --output results_REAL/ \
+  --verbose
+
+# Expected output: 97.82% accuracy (validated results!)
+```
+
+### View Your Results
+
+The pipeline will output comprehensive metrics:
+
+```text
+Overall Accuracy: 0.9782 (97.82%)
+Macro F1: 0.9589 (95.89%)
+Cohen's Kappa: 0.9570 (95.70%)
+```
+
+**Interpretation**: 97.82% accuracy means your model agrees with HIVdb on nearly 98% of predictions!
+
+## 🔧 Complete Installation Guide
+
+For detailed setup on any operating system, follow these steps:
+
+### Step 1: Set Up Python Environment
+
+```bash
+# Navigate to your project directory (replace with your actual path)
+cd /path/to/hiv-mutation-script
+
+# Create a Python virtual environment (recommended)
+python -m venv .venv
+
+# Activate the virtual environment
+# On macOS/Linux:
+source .venv/bin/activate
+# On Windows:
+.venv\Scripts\activate
+```
+```
 
 # 3. View your results
 cat results_REAL/summary.json
@@ -60,15 +136,11 @@ You need two CSV files to run the evaluation:
 1. **Model Predictions** (`model_predictions_REAL.csv`) - Your ML model's predictions
 2. **Ground Truth** (`ground_truth_REAL.csv`) - HIVdb reference labels
 
-## 🔧 Installation
-
-## 🔧 Installation
-
 ### Step 1: Set Up Python Environment
 
 ```bash
-# Navigate to your project directory
-cd /path/to/your/hiv-mutation-script
+# Navigate to your project directory (replace with your actual path)
+cd hiv-mutation-script
 
 # Create a Python virtual environment (recommended)
 python -m venv .venv
@@ -87,7 +159,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 # Option 2: Install manually if requirements.txt is missing
-pip install pandas scikit-learn numpy matplotlib seaborn jupyter
+pip install pandas scikit-learn numpy matplotlib seaborn jupyter requests
 ```
 
 ### Step 3: Verify Installation
@@ -99,6 +171,17 @@ python src/compare_vs_hivdb.py --help
 
 You should see the help message with available options.
 
+### Step 4: Test with Real Data
+
+```bash
+# Run the complete evaluation (should work on any machine)
+python src/compare_vs_hivdb.py \
+  data/model_predictions_REAL.csv \
+  data/ground_truth_REAL_fixed.csv \
+  --output results_REAL/ \
+  --verbose
+```
+
 ## 📊 Complete Workflow: Step-by-Step Guide
 
 ### Method 1: Using the Jupyter Notebook (Recommended for Beginners)
@@ -109,7 +192,7 @@ This method walks you through the entire process in an interactive notebook.
 
 ```bash
 # Make sure you're in the project directory with virtual environment activated
-cd /path/to/hiv-mutation-script
+cd hiv-mutation-script  # or wherever you placed the project
 source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 
 # Start Jupyter
@@ -358,79 +441,579 @@ Clinical Interpretation:
 ✓ ROBUST: Consistent performance across resistance categories
 ```
 
-## 🐛 Troubleshooting Guide
+## 💻 Operating System Specific Instructions
+
+This section provides detailed, step-by-step instructions for each operating system.
+
+### 🪟 Windows Users (Windows 10/11)
+
+#### Prerequisites for Windows
+- **Windows 10 or 11** (64-bit recommended)
+- **Python 3.7-3.11** - Download from [python.org](https://www.python.org/downloads/)
+- **Git** (optional) - Download from [git-scm.com](https://git-scm.com/)
+- **Command Prompt, PowerShell, or Git Bash**
+
+#### Step-by-Step Windows Installation
+
+**1. Download and Setup Project**
+
+```cmd
+# Option A: Using Git (recommended)
+git clone https://github.com/your-username/hiv-mutation-script.git
+cd hiv-mutation-script
+
+# Option B: Download ZIP file
+# 1. Download the project ZIP file
+# 2. Extract to a folder like C:\Users\YourName\hiv-mutation-script
+# 3. Open Command Prompt or PowerShell
+# 4. Navigate: cd C:\Users\YourName\hiv-mutation-script
+```
+
+**2. Verify Python Installation**
+
+```cmd
+# Check Python version (should be 3.7+)
+python --version
+# OR try:
+py --version
+py -3 --version
+
+# If Python is not found, install from python.org
+# Make sure to check "Add Python to PATH" during installation
+```
+
+**3. Create Virtual Environment**
+
+```cmd
+# Create virtual environment
+python -m venv .venv
+# OR if the above fails:
+py -m venv .venv
+
+# Activate virtual environment
+.venv\Scripts\activate
+
+# You should see (.venv) at the beginning of your prompt
+# Example: (.venv) C:\Users\YourName\hiv-mutation-script>
+```
+
+**4. Install Dependencies**
+
+```cmd
+# Make sure virtual environment is activated (you should see (.venv))
+# Upgrade pip first
+python -m pip install --upgrade pip
+
+# Install all requirements
+pip install -r requirements.txt
+
+# If you get permission errors, try:
+pip install --user -r requirements.txt
+```
+
+**5. Test Installation**
+
+```cmd
+# Test the portable setup
+python test_portable.py
+
+# If successful, run the main evaluation
+python src\compare_vs_hivdb.py data\model_predictions_REAL.csv data\ground_truth_REAL_fixed.csv --output results_REAL\ --verbose
+```
+
+**Windows Troubleshooting:**
+
+```cmd
+# Issue: "python is not recognized"
+# Solution: Add Python to PATH or use py command
+py -m pip install -r requirements.txt
+
+# Issue: Permission denied
+# Solution: Run Command Prompt as Administrator, or use --user flag
+pip install --user -r requirements.txt
+
+# Issue: Long path names
+# Solution: Enable long paths in Windows or use shorter folder names
+# Place project in C:\hiv-script\ instead of long nested folders
+
+# Issue: Antivirus blocking
+# Solution: Add project folder to antivirus exclusions
+```
+
+### 🍎 macOS Users (macOS 10.14+)
+
+#### Prerequisites for macOS
+- **macOS 10.14** or later
+- **Python 3.7-3.11** (may come pre-installed, or install via homebrew/python.org)
+- **Terminal** application
+- **Xcode Command Line Tools** (for some dependencies)
+
+#### Step-by-Step macOS Installation
+
+**1. Install Xcode Command Line Tools**
+
+```bash
+# Install command line tools (required for some Python packages)
+xcode-select --install
+
+# Click "Install" in the dialog that appears
+```
+
+**2. Check/Install Python**
+
+```bash
+# Check if Python 3 is installed
+python3 --version
+
+# If not installed, install via Homebrew (recommended):
+# First install Homebrew:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Then install Python:
+brew install python@3.11
+
+# OR download from python.org
+# Go to https://www.python.org/downloads/ and download the macOS installer
+```
+
+**3. Download Project**
+
+```bash
+# Option A: Using Git
+git clone https://github.com/your-username/hiv-mutation-script.git
+cd hiv-mutation-script
+
+# Option B: Download and extract ZIP
+curl -L -o hiv-script.zip https://github.com/your-username/hiv-mutation-script/archive/main.zip
+unzip hiv-script.zip
+cd hiv-mutation-script-main
+```
+
+**4. Create Virtual Environment**
+
+```bash
+# Create virtual environment (use python3 on macOS)
+python3 -m venv .venv
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# You should see (.venv) at the beginning of your prompt
+# Example: (.venv) user@MacBook-Pro hiv-mutation-script %
+```
+
+**5. Install Dependencies**
+
+```bash
+# Make sure virtual environment is activated
+# Upgrade pip first
+python -m pip install --upgrade pip
+
+# Install requirements
+pip install -r requirements.txt
+
+# If you get compilation errors, install with:
+pip install --upgrade setuptools wheel
+pip install -r requirements.txt
+```
+
+**6. Test Installation**
+
+```bash
+# Test the setup
+python test_portable.py
+
+# Run the main evaluation
+python src/compare_vs_hivdb.py data/model_predictions_REAL.csv data/ground_truth_REAL_fixed.csv --output results_REAL/ --verbose
+```
+
+**macOS Troubleshooting:**
+
+```bash
+# Issue: "python3: command not found"
+# Solution: Install Python via Homebrew or python.org
+brew install python@3.11
+
+# Issue: Permission denied for /usr/local
+# Solution: Fix homebrew permissions or use --user flag
+sudo chown -R $(whoami) /usr/local/lib/python*
+
+# Issue: SSL certificate errors
+# Solution: Update certificates
+/Applications/Python\ 3.x/Install\ Certificates.command
+
+# Issue: Compilation errors for numpy/pandas
+# Solution: Install Xcode command line tools
+xcode-select --install
+```
+
+### 🐧 Linux Users (Ubuntu/Debian/CentOS/Fedora)
+
+#### Prerequisites for Linux
+- **Linux distribution** (Ubuntu 18.04+, Debian 10+, CentOS 7+, Fedora 30+)
+- **Python 3.7-3.11** and **pip**
+- **Git** for cloning repository
+- **Build essentials** for compiling Python packages
+
+#### Ubuntu/Debian Instructions
+
+**1. Update System and Install Dependencies**
+
+```bash
+# Update package list
+sudo apt update
+
+# Install Python, pip, and build tools
+sudo apt install python3 python3-pip python3-venv git build-essential python3-dev
+
+# Verify Python installation
+python3 --version
+```
+
+**2. Download Project**
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/hiv-mutation-script.git
+cd hiv-mutation-script
+
+# OR download as ZIP
+wget https://github.com/your-username/hiv-mutation-script/archive/main.zip
+unzip main.zip
+cd hiv-mutation-script-main
+```
+
+**3. Create Virtual Environment**
+
+```bash
+# Create virtual environment
+python3 -m venv .venv
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# Verify activation (should show (.venv))
+which python
+```
+
+**4. Install Dependencies**
+
+```bash
+# Upgrade pip
+python -m pip install --upgrade pip
+
+# Install requirements
+pip install -r requirements.txt
+
+# If you encounter permission issues:
+pip install --user -r requirements.txt
+```
+
+**5. Test and Run**
+
+```bash
+# Test the setup
+python test_portable.py
+
+# Run evaluation
+python src/compare_vs_hivdb.py data/model_predictions_REAL.csv data/ground_truth_REAL_fixed.csv --output results_REAL/ --verbose
+```
+
+#### CentOS/RHEL/Fedora Instructions
+
+**1. Install Dependencies**
+
+```bash
+# CentOS/RHEL 7/8:
+sudo yum install python3 python3-pip python3-devel git gcc gcc-c++ make
+# OR for newer versions:
+sudo dnf install python3 python3-pip python3-devel git gcc gcc-c++ make
+
+# Fedora:
+sudo dnf install python3 python3-pip python3-devel git gcc gcc-c++ make
+```
+
+**2. Follow same steps as Ubuntu** (steps 2-5 above)
+
+**Linux Troubleshooting:**
+
+```bash
+# Issue: "python3: command not found"
+# Solution: Install Python 3
+sudo apt install python3 python3-pip  # Ubuntu/Debian
+sudo dnf install python3 python3-pip  # Fedora
+sudo yum install python3 python3-pip  # CentOS
+
+# Issue: Permission denied for installation
+# Solution: Use virtual environment or --user flag
+pip install --user -r requirements.txt
+
+# Issue: Compilation errors
+# Solution: Install development headers
+sudo apt install python3-dev build-essential  # Ubuntu/Debian
+sudo dnf install python3-devel gcc gcc-c++    # Fedora
+
+# Issue: SSL errors
+# Solution: Update CA certificates
+sudo apt update && sudo apt install ca-certificates
+```
+
+### 📱 Alternative: Using Docker (All Platforms)
+
+For users who want a completely isolated environment:
+
+**1. Install Docker**
+- Windows: [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- macOS: [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- Linux: Follow [Docker installation guide](https://docs.docker.com/engine/install/)
+
+**2. Create Dockerfile**
+
+```dockerfile
+# Create this file as 'Dockerfile' in project root
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y 
+    gcc 
+    g++ 
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project files
+COPY . .
+
+# Run the evaluation
+CMD ["python", "src/compare_vs_hivdb.py", "data/model_predictions_REAL.csv", "data/ground_truth_REAL_fixed.csv", "--output", "results_REAL/", "--verbose"]
+```
+
+**3. Build and Run**
+
+```bash
+# Build Docker image
+docker build -t hiv-resistance-pipeline .
+
+# Run the evaluation
+docker run -v $(pwd)/results_REAL:/app/results_REAL hiv-resistance-pipeline
+
+# Or run interactively
+docker run -it -v $(pwd):/app hiv-resistance-pipeline bash
+```
+```
+
+## � Cross-Platform Compatibility
+
+This project works on all major operating systems:
+
+### Windows Users
+
+```cmd
+# Use Command Prompt or PowerShell
+git clone https://github.com/your-username/hiv-mutation-script.git
+cd hiv-mutation-script
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python src/compare_vs_hivdb.py data/model_predictions_REAL.csv data/ground_truth_REAL_fixed.csv --output results_REAL/ --verbose
+```
+
+### macOS/Linux Users
+
+```bash
+# Use Terminal
+git clone https://github.com/your-username/hiv-mutation-script.git
+cd hiv-mutation-script
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python src/compare_vs_hivdb.py data/model_predictions_REAL.csv data/ground_truth_REAL_fixed.csv --output results_REAL/ --verbose
+```
+
+### Python Version Notes
+
+- **Minimum**: Python 3.7+
+- **Recommended**: Python 3.8-3.11
+- **Check your version**: `python --version` or `python3 --version`
+
+## �🐛 Troubleshooting Guide
 
 ### Common Issues and Solutions
 
-#### Issue 1: "File not found" Error
+#### Issue 1: Python Command Not Found
+
+```bash
+# Windows: Try these alternatives
+python --version
+py --version  
+py -3 --version
+
+# macOS/Linux: Try these alternatives  
+python3 --version
+python --version
+```
+
+**Solution**: Use the command that works on your system (usually `python3` on macOS/Linux, `python` on Windows)
+
+#### Issue 2: "Virtual Environment Not Activated"
+
+```bash
+# Symptoms: pip installs to system Python instead of project
+# Windows Solution:
+.venv\Scripts\activate
+
+# macOS/Linux Solution:
+source .venv/bin/activate
+
+# Verify activation (should show project path):
+which python
+```
+
+#### Issue 3: "File not found" Error
 
 ```bash
 # Error message:
-FileNotFoundError: [Errno 2] No such file or directory: 'data/model_predictions.csv'
+FileNotFoundError: [Errno 2] No such file or directory: 'data/model_predictions_REAL.csv'
 
-# Solution: Check file paths
+# Solution 1: Check you're in the right directory
+pwd  # Should show: /path/to/hiv-mutation-script
+ls data/  # Should show the REAL CSV files
+
+# Solution 2: Check file paths
 ls -la data/
 # Make sure your files are in the expected location
 ```
 
-#### Issue 2: Column Name Mismatch
+#### Issue 4: Permission Errors (Windows)
+
+```cmd
+# If you get permission errors:
+# 1. Run Command Prompt as Administrator, OR
+# 2. Use --user flag:
+pip install --user -r requirements.txt
+```
+
+#### Issue 5: Package Installation Issues
+
+```bash
+# If pip install fails:
+# Solution 1: Update pip first
+python -m pip install --upgrade pip
+
+# Solution 2: Install packages individually
+pip install pandas
+pip install scikit-learn
+pip install numpy
+pip install matplotlib
+pip install seaborn
+pip install jupyter
+pip install requests
+```
+
+#### Issue 6: Column Name Mismatch
 
 ```bash
 # Error message:
 KeyError: 'website_label'
 
-# Solution: Fix column names
-head -1 data/ground_truth.csv  # Check current column names
-sed 's/hivdb_call/website_label/' data/ground_truth.csv > data/ground_truth_fixed.csv
-```
-
-#### Issue 3: Empty Results Directory
-
-```bash
-# Error message:
-Warning: No results generated
-
-# Solution: Check file format
-head -3 data/model_predictions.csv
-# Ensure CSV has: patient_id,drug,pred_label
-
-head -3 data/ground_truth.csv  
-# Ensure CSV has: patient_id,drug,website_label
-```
-
-#### Issue 4: Low Performance Scores
-
-```text
-# If accuracy < 0.90:
-1. Check data quality and alignment
-2. Verify model was trained properly
-3. Ensure consistent drug naming
-4. Check for data leakage issues
-```
-
-#### Issue 5: Memory Issues with Large Datasets
-
-```bash
-# For datasets >100K samples:
+# Solution: Use the fixed ground truth file
 python src/compare_vs_hivdb.py \
-  data/model_predictions.csv \
-  data/ground_truth.csv \
-  --output results/ \
-  --batch-size 1000  # Process in smaller batches
+  data/model_predictions_REAL.csv \
+  data/ground_truth_REAL_fixed.csv \  # Use the _fixed version
+  --output results_REAL/ \
+  --verbose
+```
+
+#### Issue 7: Jupyter Notebook Issues
+
+```bash
+# If Jupyter doesn't start:
+# Solution 1: Install/reinstall Jupyter
+pip install --upgrade jupyter
+
+# Solution 2: Start with explicit path
+python -m jupyter notebook
+
+# Solution 3: Check if port is blocked
+python -m jupyter notebook --port=8889
 ```
 
 ### Validation Checklist
 
 Before running evaluation, ensure:
 
-- [ ] Virtual environment activated
-- [ ] All required packages installed
-- [ ] Model predictions file exists with correct format
-- [ ] Ground truth file exists with 'website_label' column
-- [ ] Output directory is writable
+- [ ] Virtual environment activated (`source .venv/bin/activate` or `.venv\Scripts\activate`)
+- [ ] All required packages installed (`pip install -r requirements.txt`)
+- [ ] Model predictions file exists (`data/model_predictions_REAL.csv`)
+- [ ] Ground truth file exists with correct name (`data/ground_truth_REAL_fixed.csv`)
+- [ ] Output directory is writable (`results_REAL/`)
 - [ ] Sufficient disk space (>100MB for large datasets)
+- [ ] Python 3.7+ installed (`python --version`)
 
-## 📈 Advanced Usage
+### Cross-Platform File Paths
+
+The scripts automatically handle different operating systems:
+
+- **Windows**: Uses backslashes (`\`) internally but accepts forward slashes (`/`)
+- **macOS/Linux**: Uses forward slashes (`/`)
+- **All platforms**: Relative paths work the same (`data/file.csv`)
+
+**Pro tip**: Always use relative paths (like `data/file.csv`) instead of absolute paths for maximum portability!
+
+## � Portable Deployment
+
+### For Different Users/Machines
+
+This project is designed to be completely portable. Anyone can:
+
+1. **Clone the repository** to any machine
+2. **Create a virtual environment** (isolates dependencies)
+3. **Install requirements** from `requirements.txt`
+4. **Run the evaluation** with the provided real data
+5. **Get identical results** (97.82% accuracy)
+
+### What Makes It Portable?
+
+- ✅ **No hardcoded paths** - Uses relative paths and `sys.executable`
+- ✅ **Virtual environment** - Isolated Python dependencies  
+- ✅ **Complete requirements.txt** - All dependencies specified
+- ✅ **Cross-platform code** - Works on Windows, macOS, Linux
+- ✅ **Real data included** - 27,000 validated predictions included
+- ✅ **Comprehensive docs** - Step-by-step instructions for any system
+
+### Sharing Instructions
+
+To share this project with others:
+
+```bash
+# 1. Package the project (sender)
+git archive --format=zip --output=hiv-resistance-pipeline.zip HEAD
+
+# 2. Share the zip file and these instructions:
+# "Extract, create virtual environment, install requirements, run script"
+
+# 3. Recipient follows the Quick Start Guide above
+```
+
+### Docker Alternative (Advanced)
+
+For ultimate portability, you can also create a Docker container:
+
+```dockerfile
+# Dockerfile (optional)
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["python", "src/compare_vs_hivdb.py", "data/model_predictions_REAL.csv", "data/ground_truth_REAL_fixed.csv", "--output", "results_REAL/", "--verbose"]
+```
+
+## �📈 Advanced Usage
 
 ### Custom Resistance Mappings
 
