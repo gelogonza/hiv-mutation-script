@@ -1,61 +1,271 @@
 # HIV Drug Resistance Model Evaluation Pipeline
 
-A comprehensive evaluation framework for comparing machine learning model predictions against HIVdb reference calls for HIV drug resistance analysis.
+A comprehensive evaluation framework for comparing machine learning model predictions against HIVdb reference calls for HIV drug resistance analysis. This pipeline allows you to evaluate how well your ML model performs compared to the Stanford HIVdb algorithm standard.
 
-## Directory Structure
+## 🎯 What This Pipeline Does
+
+This system compares your machine learning model's drug resistance predictions against the Stanford HIVdb website algorithm results. You'll get detailed performance metrics showing how accurately your model predicts HIV drug resistance (Susceptible/Intermediate/Resistant) compared to the clinical standard.
+
+## 📁 Directory Structure
 
 ```text
 hiv-mutation-script/
-├── README.md                           # This file
+├── README.md                           # Complete documentation (this file)
+├── requirements.txt                    # Python dependencies
 ├── src/                               # Python scripts
 │   ├── compare_vs_hivdb.py           # Main evaluation script
-│   └── flatten_hivdb.py              # HIVdb JSON to CSV converter
+│   └── flatten_hivdb.py              # HIVdb JSON to CSV converter  
 ├── notebooks/                        # Jupyter notebooks
-│   └── HIV_drug_recommendation.ipynb # ML model development
+│   └── HIV_drug_recommendation.ipynb # Complete ML model development
 ├── data/                             # Model predictions and datasets
-├── hivdb/                            # HIVdb reference data
-└── results/                          # Evaluation outputs (auto-created)
+│   ├── model_predictions_REAL.csv   # Your model's predictions
+│   └── ground_truth_REAL.csv        # HIVdb ground truth labels
+├── results_REAL/                     # Evaluation results
+│   ├── summary.json                  # Key performance metrics
+│   ├── confusion_matrix_SIR.csv      # Detailed confusion matrix
+│   ├── classification_report.json    # Per-class performance
+│   └── merged_eval_rows.csv          # Complete evaluation data
+└── .venv/                            # Python virtual environment
 ```
 
-## Installation
+## 🚀 Quick Start Guide
 
-### Dependencies
-
-Install the required Python packages:
+**Want to run the evaluation immediately?** If you already have the notebook and data ready:
 
 ```bash
-# Option 1: Install from requirements.txt
-pip install -r requirements.txt
+# 1. Navigate to the project directory
+cd /Users/angelogonzalez/Coding/hiv-mutation-script
 
-# Option 2: Install manually
-pip install pandas scikit-learn numpy
+# 2. Run the comparison with your real model data
+python src/compare_vs_hivdb.py data/model_predictions_REAL.csv data/ground_truth_REAL_fixed.csv --output results_REAL/ --verbose
+
+# 3. View your results
+cat results_REAL/summary.json
 ```
 
-### sierra-local Setup
+Your results will show accuracy, F1 scores, and detailed performance metrics comparing your ML model vs HIVdb algorithm.
 
-To generate HIVdb reference calls, you'll need sierra-local (Stanford HIVdb's local resistance analysis tool):
+## 📋 Prerequisites
 
-1. **Download sierra-local:**
+### System Requirements
 
-   ```bash
-   # Download the latest release from GitHub
-   wget https://github.com/hivdb/sierra-local/releases/latest/download/sierra-local-linux.zip
-   unzip sierra-local-linux.zip
-   ```
+- Python 3.8+
+- 2GB RAM minimum
+- macOS, Linux, or Windows
 
-2. **Make it executable:**
+### Required Files
 
-   ```bash
-   chmod +x sierra-local
-   ```
+You need two CSV files to run the evaluation:
 
-3. **Test installation:**
+1. **Model Predictions** (`model_predictions_REAL.csv`) - Your ML model's predictions
+2. **Ground Truth** (`ground_truth_REAL.csv`) - HIVdb reference labels
 
-   ```bash
-   ./sierra-local --help
-   ```
+## 🔧 Installation
 
-## Usage Workflow
+## 🔧 Installation
+
+### Step 1: Set Up Python Environment
+
+```bash
+# Navigate to your project directory
+cd /path/to/your/hiv-mutation-script
+
+# Create a Python virtual environment (recommended)
+python -m venv .venv
+
+# Activate the virtual environment
+# On macOS/Linux:
+source .venv/bin/activate
+# On Windows:
+.venv\Scripts\activate
+```
+
+### Step 2: Install Dependencies
+
+```bash
+# Option 1: Install from requirements.txt (recommended)
+pip install -r requirements.txt
+
+# Option 2: Install manually if requirements.txt is missing
+pip install pandas scikit-learn numpy matplotlib seaborn jupyter
+```
+
+### Step 3: Verify Installation
+
+```bash
+# Test that the main script is accessible
+python src/compare_vs_hivdb.py --help
+```
+
+You should see the help message with available options.
+
+## 📊 Complete Workflow: Step-by-Step Guide
+
+### Method 1: Using the Jupyter Notebook (Recommended for Beginners)
+
+This method walks you through the entire process in an interactive notebook.
+
+#### Step 1: Start Jupyter Notebook
+
+```bash
+# Make sure you're in the project directory with virtual environment activated
+cd /path/to/hiv-mutation-script
+source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+
+# Start Jupyter
+jupyter notebook
+```
+
+#### Step 2: Open the HIV Drug Resistance Notebook
+
+1. In your browser, navigate to `notebooks/HIV_drug_recommendation.ipynb`
+2. Click to open the notebook
+
+#### Step 3: Run the Complete Pipeline
+
+Execute these cells in order:
+
+**Cells 1-11: Data Preparation and Model Training**
+
+```python
+# These cells will:
+# - Download HIVdb algorithm data
+# - Process HIV mutation rules  
+# - Generate synthetic mutation profiles
+# - Train machine learning models (RandomForest, GradientBoosting, LogisticRegression)
+```
+
+**Cell 12: Model Training and Performance**
+
+```python
+# This trains all models and shows performance:
+# Expected output:
+# === Training RandomForest ===
+# RandomForest training time: 6.82 sec
+# Average AUROC: 0.989
+```
+
+**Cell 28: Export Real Model Predictions**
+
+```python
+# This exports your model's predictions to data/model_predictions_REAL.csv
+# Expected output:
+# EXPORTED 27000 REAL MODEL PREDICTIONS!
+```
+
+**Cell 29: Create Real Ground Truth**
+
+```python
+# This creates ground truth labels from test data
+# Expected output:  
+# CREATED 27000 REAL GROUND TRUTH LABELS!
+```
+
+**Cell 31: Run Final Comparison**
+
+```python
+# This runs the evaluation script and shows results
+# Expected output:
+# Overall Accuracy: 0.9782
+# Macro F1: 0.9589
+```
+
+#### Step 4: Review Results
+
+The notebook will display comprehensive results including:
+
+- Overall accuracy (typically 95%+ for good models)
+- Per-class F1 scores for S/I/R categories
+- Confusion matrix
+- Cohen's Kappa (agreement metric)
+
+### Method 2: Using Pre-Generated Data Files
+
+If you already have model predictions and ground truth data:
+
+#### Step 1: Verify Your Data Format
+
+**Model Predictions CSV** must have these columns:
+
+```csv
+patient_id,drug,pred_label
+real_patient_0001,ABC,S
+real_patient_0001,AZT,I  
+real_patient_0001,D4T,R
+```
+
+**Ground Truth CSV** must have these columns:
+
+```csv
+patient_id,drug,website_label
+real_patient_0001,ABC,S
+real_patient_0001,AZT,S
+real_patient_0001,D4T,I
+```
+
+#### Step 2: Run the Comparison Script
+
+```bash
+# Basic usage
+python src/compare_vs_hivdb.py data/model_predictions.csv data/ground_truth.csv --output results/
+
+# With verbose output (recommended)
+python src/compare_vs_hivdb.py data/model_predictions.csv data/ground_truth.csv --output results/ --verbose
+
+# Example with actual file paths
+python src/compare_vs_hivdb.py data/model_predictions_REAL.csv data/ground_truth_REAL_fixed.csv --output results_REAL/ --verbose
+```
+
+#### Step 3: Check for Common Issues
+
+**File Not Found Error:**
+
+```bash
+# Check if files exist
+ls -la data/model_predictions_REAL.csv
+ls -la data/ground_truth_REAL.csv
+
+# If ground_truth file has 'hivdb_call' column instead of 'website_label':
+sed 's/hivdb_call/website_label/' data/ground_truth_REAL.csv > data/ground_truth_REAL_fixed.csv
+```
+
+**Column Name Mismatch:**
+
+```bash
+# Check column names in your files
+head -1 data/model_predictions_REAL.csv
+head -1 data/ground_truth_REAL.csv
+
+# The script expects 'website_label' in ground truth, not 'hivdb_call'
+```
+
+#### Step 4: Successful Output Example
+
+When the script runs successfully, you'll see:
+
+```text
+Using default mapping: {1: 'S', 2: 'I', 3: 'I', 4: 'R', 5: 'R'}
+✓ Loaded 27000 model predictions
+✓ Loaded 27000 HIVdb calls from CSV
+✓ Successfully merged 27000 evaluation pairs
+
+Overall Performance:
+  Accuracy:        0.9782
+  Macro F1:        0.9589
+  Weighted F1:     0.9779
+  Cohen's Kappa:   0.9570
+
+Per-Class F1 Scores:
+  Susceptible (S): 0.9965
+  Intermediate(I): 0.9519
+  Resistant (R):   0.9283
+
+✓ Evaluation complete! Results saved to: results_REAL/
+```
+
+### Method 3: Using Sierra-Local for Real HIVdb Data
+
+For evaluating against actual HIVdb algorithm results:
 
 ### Step 1: Generate HIVdb Reference Calls
 
