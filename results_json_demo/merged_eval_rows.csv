@@ -1,5 +1,0 @@
-patient_id,drug,pred_label,prob_S,prob_I,prob_R,gene_hivdb,hivdb_level_hivdb,hivdb_score_hivdb,hivdb_label,hivdb_version_hivdb
-patient_001,3TC,I,0.2,0.7,0.1,RT,3,25,I,9.5
-patient_001,AZT,S,0.9,0.05,0.05,RT,1,5,S,9.5
-patient_001,ATV/r,R,0.1,0.2,0.7,PR,5,60,R,9.5
-patient_002,EFV,R,0.05,0.15,0.8,RT,5,85,R,9.5
